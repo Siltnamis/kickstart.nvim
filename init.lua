@@ -90,7 +90,8 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.cmd.colorscheme 'retrobox'
+--vim.cmd.colorscheme 'retrobox'
+vim.cmd.colorscheme 'habamax'
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
@@ -625,6 +626,8 @@ require('lazy').setup({
             vim.cmd 'LspClangdSwitchSourceHeader'
           end, 'Swap header/source')
 
+          map('ge', vim.diagnostic.open_float, 'Show diagnostic')
+
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
@@ -781,9 +784,6 @@ require('lazy').setup({
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
-            if server_name == 'clangd' then
-              --return
-            end
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
