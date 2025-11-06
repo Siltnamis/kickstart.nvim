@@ -268,6 +268,29 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   end,
 })
 
+-- defaullt tab opts per language
+local tab_configs = {
+  javascript = { tabstop = 2, shiftwidth = 2, expandtab = true },
+  typescript = { tabstop = 2, shiftwidth = 2, expandtab = true },
+  lua = { tabstop = 2, shiftwidth = 2, expandtab = true },
+  make = { tabstop = 4, shiftwidth = 4, expandtab = false },
+  c = { tabstop = 4, shiftwidth = 4, expandtab = true },
+  cpp = { tabstop = 4, shiftwidth = 4, expandtab = true },
+}
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = '*',
+  callback = function()
+    local config = tab_configs[vim.bo.filetype] or { tabstop = 4, shiftwidth = 4, expandtab = true }
+    if config then
+      vim.bo.tabstop = config.tabstop
+      vim.bo.shiftwidth = config.shiftwidth
+      vim.bo.softtabstop = config.tabstop
+      vim.bo.expandtab = config.expandtab
+    end
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
