@@ -178,6 +178,11 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- build
+vim.keymap.set('n', '<C-S-b>', function()
+  vim.cmd '!./build_debug.sh'
+end)
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -728,7 +733,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {
-          cmd = { 'clangd', '--log=verbose' },
+          cmd = { 'clangd', '--log=verbose', '--experimental-modules-support' },
           filetypes = { 'cpp', 'c', 'h', 'hpp', 'ixx' },
         },
         -- gopls = {},
